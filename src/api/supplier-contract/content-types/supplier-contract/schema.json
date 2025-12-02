@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "supplier_contracts",
+  "info": {
+    "singularName": "supplier-contract",
+    "pluralName": "supplier-contracts",
+    "displayName": "Supplier Contract",
+    "description": "Contract relationship between Clinic and Supplier"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "clinic": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::clinic.clinic",
+      "inversedBy": "supplier_contracts",
+      "required": true
+    },
+    "supplier": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::supplier.supplier",
+      "inversedBy": "contracts",
+      "required": true
+    },
+    "discount_percentage": {
+      "type": "decimal",
+      "default": 0,
+      "min": 0,
+      "max": 100
+    },
+    "payment_terms": {
+      "type": "json"
+    },
+    "delivery_terms": {
+      "type": "string"
+    },
+    "credit_limit": {
+      "type": "decimal",
+      "default": 0
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["active", "suspended", "terminated"],
+      "default": "active"
+    },
+    "start_date": {
+      "type": "date",
+      "required": true
+    },
+    "end_date": {
+      "type": "date"
+    }
+  }
+}

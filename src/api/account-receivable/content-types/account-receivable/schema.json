@@ -1,0 +1,75 @@
+{
+  "kind": "collectionType",
+  "collectionName": "accounts_receivable",
+  "info": {
+    "singularName": "account-receivable",
+    "pluralName": "accounts-receivable",
+    "displayName": "Account Receivable",
+    "description": "Accounts receivable per clinic"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "clinic": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::clinic.clinic",
+      "inversedBy": "accounts_receivable",
+      "required": true
+    },
+    "patient_name": {
+      "type": "string",
+      "required": true
+    },
+    "patient_cpf": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "required": true
+    },
+    "procedure": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "decimal",
+      "required": true,
+      "min": 0
+    },
+    "amount_received": {
+      "type": "decimal",
+      "default": 0,
+      "min": 0
+    },
+    "amount_remaining": {
+      "type": "decimal",
+      "min": 0
+    },
+    "due_date": {
+      "type": "date",
+      "required": true
+    },
+    "received_date": {
+      "type": "date"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["pending", "overdue", "received", "cancelled"],
+      "default": "pending"
+    },
+    "payment_method": {
+      "type": "enumeration",
+      "enum": ["cash", "card", "pix", "insurance"]
+    },
+    "notes": {
+      "type": "text"
+    },
+    "appointment": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::appointment.appointment"
+    }
+  }
+}

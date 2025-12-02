@@ -1,0 +1,89 @@
+{
+  "kind": "collectionType",
+  "collectionName": "invoices",
+  "info": {
+    "singularName": "invoice",
+    "pluralName": "invoices",
+    "displayName": "Invoice",
+    "description": "Fiscal invoices"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "invoice_number": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "clinic": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::clinic.clinic",
+      "required": true
+    },
+    "supplier": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::supplier.supplier",
+      "required": true
+    },
+    "order": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::order.order"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": ["nfe", "nfse", "receipt"],
+      "required": true
+    },
+    "subtotal": {
+      "type": "decimal",
+      "required": true,
+      "min": 0
+    },
+    "tax": {
+      "type": "decimal",
+      "required": true,
+      "min": 0
+    },
+    "total": {
+      "type": "decimal",
+      "required": true,
+      "min": 0
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["issued", "cancelled", "rectified"],
+      "default": "issued"
+    },
+    "access_key": {
+      "type": "string"
+    },
+    "xml_file": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["files"]
+    },
+    "pdf_file": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["files"]
+    },
+    "issue_date": {
+      "type": "date",
+      "required": true
+    },
+    "due_date": {
+      "type": "date"
+    },
+    "paid_at": {
+      "type": "datetime"
+    },
+    "notes": {
+      "type": "text"
+    }
+  }
+}

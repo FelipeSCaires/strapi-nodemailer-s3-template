@@ -1,0 +1,80 @@
+{
+  "kind": "collectionType",
+  "collectionName": "transactions",
+  "info": {
+    "singularName": "transaction",
+    "pluralName": "transactions",
+    "displayName": "Transaction",
+    "description": "Financial transactions per clinic"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "transaction_number": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "clinic": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::clinic.clinic",
+      "inversedBy": "transactions",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": ["credit", "debit"],
+      "required": true
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": ["order", "payment", "refund", "fee", "adjustment", "procedure"],
+      "required": true
+    },
+    "amount": {
+      "type": "decimal",
+      "required": true,
+      "min": 0
+    },
+    "balance_before": {
+      "type": "decimal",
+      "required": true
+    },
+    "balance_after": {
+      "type": "decimal",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "required": true
+    },
+    "notes": {
+      "type": "text"
+    },
+    "reference_type": {
+      "type": "string"
+    },
+    "reference_id": {
+      "type": "biginteger"
+    },
+    "order": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::order.order",
+      "inversedBy": "transactions"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["pending", "completed", "cancelled", "reversed"],
+      "default": "pending"
+    },
+    "created_by": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

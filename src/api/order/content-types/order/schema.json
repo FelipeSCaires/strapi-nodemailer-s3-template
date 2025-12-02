@@ -1,0 +1,123 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "singularName": "order",
+    "pluralName": "orders",
+    "displayName": "Order",
+    "description": "Purchase orders from clinic to supplier"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "order_number": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "clinic": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::clinic.clinic",
+      "inversedBy": "orders",
+      "required": true
+    },
+    "supplier": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::supplier.supplier",
+      "inversedBy": "orders",
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["draft", "pending", "confirmed", "processing", "shipped", "delivered", "cancelled"],
+      "default": "draft"
+    },
+    "subtotal": {
+      "type": "decimal",
+      "required": true,
+      "min": 0
+    },
+    "discount": {
+      "type": "decimal",
+      "default": 0,
+      "min": 0
+    },
+    "tax": {
+      "type": "decimal",
+      "default": 0,
+      "min": 0
+    },
+    "shipping": {
+      "type": "decimal",
+      "default": 0,
+      "min": 0
+    },
+    "total": {
+      "type": "decimal",
+      "required": true,
+      "min": 0
+    },
+    "payment_method": {
+      "type": "enumeration",
+      "enum": ["credit", "boleto", "pix", "card"]
+    },
+    "payment_status": {
+      "type": "enumeration",
+      "enum": ["pending", "paid", "overdue", "cancelled"],
+      "default": "pending"
+    },
+    "payment_due_date": {
+      "type": "date"
+    },
+    "delivery_address": {
+      "type": "json"
+    },
+    "estimated_delivery": {
+      "type": "date"
+    },
+    "delivered_at": {
+      "type": "datetime"
+    },
+    "notes": {
+      "type": "text"
+    },
+    "internal_notes": {
+      "type": "text"
+    },
+    "tracking_code": {
+      "type": "string"
+    },
+    "confirmed_at": {
+      "type": "datetime"
+    },
+    "shipped_at": {
+      "type": "datetime"
+    },
+    "items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order-item.order-item",
+      "mappedBy": "order"
+    },
+    "transactions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::transaction.transaction",
+      "mappedBy": "order"
+    },
+    "invoice": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::invoice.invoice"
+    },
+    "account_payable": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::account-payable.account-payable"
+    }
+  }
+}

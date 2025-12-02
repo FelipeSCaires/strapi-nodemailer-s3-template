@@ -1,0 +1,114 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Product",
+    "description": "Supplier product catalog"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "supplier": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::supplier.supplier",
+      "inversedBy": "products",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "sku": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "products",
+      "required": true
+    },
+    "subcategory": {
+      "type": "string"
+    },
+    "brand": {
+      "type": "string"
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images"]
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "specifications": {
+      "type": "json"
+    },
+    "base_price": {
+      "type": "decimal",
+      "required": true,
+      "min": 0
+    },
+    "unit": {
+      "type": "enumeration",
+      "enum": ["unit", "box", "kg", "liter"],
+      "default": "unit"
+    },
+    "units_per_package": {
+      "type": "integer",
+      "default": 1,
+      "min": 1
+    },
+    "available": {
+      "type": "boolean",
+      "default": true
+    },
+    "stock_supplier": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_new": {
+      "type": "boolean",
+      "default": false
+    },
+    "requires_prescription": {
+      "type": "boolean",
+      "default": false
+    },
+    "inventory_items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::inventory-item.inventory-item",
+      "mappedBy": "product"
+    },
+    "order_items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order-item.order-item",
+      "mappedBy": "product"
+    }
+  }
+}

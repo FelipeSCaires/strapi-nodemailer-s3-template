@@ -1,0 +1,67 @@
+{
+  "kind": "collectionType",
+  "collectionName": "appointments",
+  "info": {
+    "singularName": "appointment",
+    "pluralName": "appointments",
+    "displayName": "Appointment",
+    "description": "Patient appointments per clinic"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "clinic": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::clinic.clinic",
+      "inversedBy": "appointments",
+      "required": true
+    },
+    "patient_name": {
+      "type": "string",
+      "required": true
+    },
+    "patient_phone": {
+      "type": "string"
+    },
+    "patient_email": {
+      "type": "email"
+    },
+    "date": {
+      "type": "datetime",
+      "required": true
+    },
+    "duration": {
+      "type": "integer",
+      "min": 0
+    },
+    "procedure": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["scheduled", "confirmed", "in_progress", "completed", "cancelled", "no_show"],
+      "default": "scheduled"
+    },
+    "professional": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "estimated_value": {
+      "type": "decimal",
+      "min": 0
+    },
+    "notes": {
+      "type": "text"
+    },
+    "account_receivable": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::account-receivable.account-receivable"
+    }
+  }
+}

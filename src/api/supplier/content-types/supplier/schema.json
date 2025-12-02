@@ -1,0 +1,96 @@
+{
+  "kind": "collectionType",
+  "collectionName": "suppliers",
+  "info": {
+    "singularName": "supplier",
+    "pluralName": "suppliers",
+    "displayName": "Supplier",
+    "description": "Shared supplier entity"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "cnpj": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phone": {
+      "type": "string"
+    },
+    "address": {
+      "type": "json"
+    },
+    "description": {
+      "type": "text"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "website": {
+      "type": "string"
+    },
+    "payment_terms": {
+      "type": "json"
+    },
+    "delivery_areas": {
+      "type": "json"
+    },
+    "min_order_value": {
+      "type": "decimal",
+      "default": 0
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["active", "inactive"],
+      "default": "active"
+    },
+    "rating": {
+      "type": "float",
+      "min": 0,
+      "max": 5,
+      "default": 0
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "supplier"
+    },
+    "contracts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::supplier-contract.supplier-contract",
+      "mappedBy": "supplier"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "supplier"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "supplier"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "kind": "collectionType",
+  "collectionName": "inventory_movements",
+  "info": {
+    "singularName": "inventory-movement",
+    "pluralName": "inventory-movements",
+    "displayName": "Inventory Movement",
+    "description": "Inventory movement history"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "inventory_item": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::inventory-item.inventory-item",
+      "inversedBy": "movements",
+      "required": true
+    },
+    "clinic": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::clinic.clinic",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": ["in", "out", "adjustment", "transfer"],
+      "required": true
+    },
+    "quantity": {
+      "type": "integer",
+      "required": true
+    },
+    "quantity_before": {
+      "type": "integer",
+      "required": true
+    },
+    "quantity_after": {
+      "type": "integer",
+      "required": true
+    },
+    "reason": {
+      "type": "enumeration",
+      "enum": ["purchase", "sale", "adjustment", "waste", "return"],
+      "required": true
+    },
+    "reference_type": {
+      "type": "string"
+    },
+    "reference_id": {
+      "type": "biginteger"
+    },
+    "notes": {
+      "type": "text"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}
